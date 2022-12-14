@@ -1,0 +1,10 @@
+{
+  "name": "Intelligent Bot",
+  "version": "1.0",
+  "authors": "Łukasz Wolski, Łukasz Wroński",
+  "description": "An intelligent bot with goal to defeat all the opponents.",
+  "homepage": "",
+  "countryCodes": "pl",
+  "platform": "JVM",
+  "programmingLang": "Java 11"
+}
