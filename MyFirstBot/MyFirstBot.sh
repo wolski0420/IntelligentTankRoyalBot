@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp ../lib/* MyFirstBot.java 
+java -cp "$(printf %s: ../lib/*.jar)" MyFirstBot.java

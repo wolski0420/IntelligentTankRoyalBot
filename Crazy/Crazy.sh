@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp ../lib/* Crazy.java 
+java -cp "$(printf %s: ../lib/*.jar)" Crazy.java

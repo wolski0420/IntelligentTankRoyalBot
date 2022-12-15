@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp ../lib/* Walls.java 
+java -cp "$(printf %s: ../lib/*.jar)" Walls.java

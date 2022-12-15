@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp ../lib/* SpinBot.java 
+java -cp "$(printf %s: ../lib/*.jar)" SpinBot.java

@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp ../lib/* TrackFire.java 
+java -cp "$(printf %s: ../lib/*.jar)" TrackFire.java

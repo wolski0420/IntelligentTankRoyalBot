@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp ../lib/* IntelligentBot.java
+java -cp "$(printf %s: ../lib/*.jar)" IntelligentBot.java

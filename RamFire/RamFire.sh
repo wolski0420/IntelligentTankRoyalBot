@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp ../lib/* RamFire.java 
+java -cp "$(printf %s: ../lib/*.jar)" RamFire.java

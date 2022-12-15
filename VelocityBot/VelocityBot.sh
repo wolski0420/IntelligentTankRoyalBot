@@ -1,2 +1,2 @@
 #!/bin/sh
-java -cp ../lib/* VelocityBot.java 
+java -cp "$(printf %s: ../lib/*.jar)" VelocityBot.java
