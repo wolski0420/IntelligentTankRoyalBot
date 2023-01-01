@@ -23,7 +23,7 @@ public class ByAngleShootingRule {
         // if further -> weaker shot, if closer -> stronger shot
         double distanceBetween = currentBot.distanceTo(scannedBotEvent.getX(), scannedBotEvent.getY());
         double diagonalLength = Math.sqrt(Math.pow(currentBot.getArenaHeight(), 2) + Math.pow(currentBot.getArenaWidth(), 2));
-        double firePower = 2 * (1 - distanceBetween / diagonalLength);
+        double firePower = 3 * (1 - distanceBetween / diagonalLength);
 
         currentBot.fire(firePower);
     }

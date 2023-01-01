@@ -30,12 +30,14 @@ public class IntelligentBot extends Bot {
         rules.register(new ByAngleShootingRule());
     }
 
+    int turnDirection = 1;
+
     // Called when a new round is started -> initialize and do some movement
     @Override
     public void run() {
         // Repeat while the bot is running
         while (isRunning()) {
-            turnGunRight(360);
+            turnLeft(5 * turnDirection);
         }
     }
 
@@ -47,6 +49,22 @@ public class IntelligentBot extends Bot {
         facts.add(new Fact<>("scannedBotEvent", e));
 
         rulesEngine.fire(rules, facts);
+        turnToFaceTarget(e.getX(), e.getY());
+
+        var distance = distanceTo(e.getX(), e.getY());
+        forward( distance/5);
+
+        rescan();
+    }
+
+    private void turnToFaceTarget(double x, double y) {
+        var bearing = bearingTo(x, y);
+        if (bearing >= 0) {
+            turnDirection = 1;
+        } else {
+            turnDirection = -1;
+        }
+        turnLeft(bearing);
     }
 
     // We were hit by a bullet -> turn perpendicular to the bullet
