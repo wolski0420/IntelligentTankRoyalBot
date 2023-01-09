@@ -27,6 +27,7 @@ public class IntelligentBot extends Bot {
     // Constructor, which loads the bot config file
     IntelligentBot() {
         super(BotInfo.fromFile("IntelligentBot.json"));
+        rules.register(new RetreatRule());
         rules.register(new ByAngleShootingRule());
     }
 
@@ -51,8 +52,9 @@ public class IntelligentBot extends Bot {
         rulesEngine.fire(rules, facts);
         turnToFaceTarget(e.getX(), e.getY());
 
+        fire(1);
         var distance = distanceTo(e.getX(), e.getY());
-        forward( distance/5);
+        forward( distance/2);
 
         rescan();
     }
