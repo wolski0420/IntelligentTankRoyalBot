@@ -10,6 +10,10 @@ public class ByAngleShootingRule {
     @Condition
     public boolean when(@Fact("currentBot") Bot currentBot, @Fact("scannedBotEvent") ScannedBotEvent scannedBotEvent) {
         // allowing to shot only when current bot gun is almost in the same direction as scanned bot moving direction
+        if (scannedBotEvent.getSpeed() == 0) {
+            return true;
+        }
+
         double angleTolerance = 10 * (scannedBotEvent.getSpeed() / currentBot.getMaxSpeed());
         double angleMax = 190 + angleTolerance;
         double angleMin = 170 - angleTolerance;
