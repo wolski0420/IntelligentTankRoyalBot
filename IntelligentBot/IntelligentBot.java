@@ -16,6 +16,7 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 // Moves in a seesaw motion, and spins the gun around at each end.
 // ------------------------------------------------------------------
 public class IntelligentBot extends Bot {
+    private final ExtraPhysicsValues values = new ExtraPhysicsValues();
     private final Rules rules = new Rules();
     private final RulesEngine rulesEngine = new DefaultRulesEngine();
 
@@ -29,16 +30,15 @@ public class IntelligentBot extends Bot {
         super(BotInfo.fromFile("IntelligentBot.json"));
         rules.register(new RetreatRule());
         rules.register(new ByAngleShootingRule());
+        rules.register(new MoveTowardsEnemyRule(values));
     }
-
-    int turnDirection = 1;
 
     // Called when a new round is started -> initialize and do some movement
     @Override
     public void run() {
         // Repeat while the bot is running
         while (isRunning()) {
-            turnLeft(5 * turnDirection);
+            turnLeft(5 * values.getTurnDirection());
         }
     }
 
@@ -50,23 +50,6 @@ public class IntelligentBot extends Bot {
         facts.add(new Fact<>("scannedBotEvent", e));
 
         rulesEngine.fire(rules, facts);
-        turnToFaceTarget(e.getX(), e.getY());
-
-        fire(1);
-        var distance = distanceTo(e.getX(), e.getY());
-        forward( distance/2);
-
-        rescan();
-    }
-
-    private void turnToFaceTarget(double x, double y) {
-        var bearing = bearingTo(x, y);
-        if (bearing >= 0) {
-            turnDirection = 1;
-        } else {
-            turnDirection = -1;
-        }
-        turnLeft(bearing);
     }
 
     // We were hit by a bullet -> turn perpendicular to the bullet

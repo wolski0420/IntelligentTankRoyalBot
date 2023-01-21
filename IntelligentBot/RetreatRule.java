@@ -16,7 +16,6 @@ public class RetreatRule {
 
     @Action
     public void then(@Fact("currentBot") Bot currentBot, @Fact("scannedBotEvent") ScannedBotEvent scannedBotEvent) {
-        System.err.println("fire: "+ 3);
         currentBot.fire(4);
         currentBot.setMaxSpeed(5);
         currentBot.forward(10_000);
