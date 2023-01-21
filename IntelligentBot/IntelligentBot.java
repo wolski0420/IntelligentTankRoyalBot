@@ -31,6 +31,7 @@ public class IntelligentBot extends Bot {
         rules.register(new RetreatRule());
         rules.register(new ByAngleShootingRule());
         rules.register(new MoveTowardsEnemyRule(values));
+        rules.register(new PerpendicularMovesRule());
     }
 
     // Called when a new round is started -> initialize and do some movement
@@ -55,10 +56,10 @@ public class IntelligentBot extends Bot {
     // We were hit by a bullet -> turn perpendicular to the bullet
     @Override
     public void onHitByBullet(HitByBulletEvent e) {
-        // Calculate the bearing to the direction of the bullet
-        var bearing = calcBearing(e.getBullet().getDirection());
+        Facts facts = new Facts();
+        facts.add(new Fact<>("currentBot", this));
+        facts.add(new Fact<>("bulletHitEvent", e));
 
-        // Turn 90 degrees to the bullet direction based on the bearing
-        turnLeft(90 - bearing);
+        rulesEngine.fire(rules, facts);
     }
 }
