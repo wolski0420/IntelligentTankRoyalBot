@@ -7,6 +7,7 @@ import org.jeasy.rules.annotation.Rule;
 
 @Rule(name = "moveTowardsEnemyRule", description = "Moving towards detected enemy bot")
 public class MoveTowardsEnemyRule {
+    private final ArenaBoundsValidator arenaBoundsValidator = new ArenaBoundsValidator();
     private final ExtraPhysicsValues values;
 
     public MoveTowardsEnemyRule(ExtraPhysicsValues values) {
@@ -25,7 +26,9 @@ public class MoveTowardsEnemyRule {
         turnToFaceTarget(currentBot, scannedBotEvent.getX(), scannedBotEvent.getY());
 
         currentBot.fire(1);
-        currentBot.forward( currentBot.distanceTo(scannedBotEvent.getX(), scannedBotEvent.getY()) / 2);
+        currentBot.setMaxSpeed(8);
+        currentBot.forward(arenaBoundsValidator.calculatePossibleDistance(currentBot,
+                currentBot.distanceTo(scannedBotEvent.getX(), scannedBotEvent.getY()) / 2));
 
         currentBot.rescan();
     }

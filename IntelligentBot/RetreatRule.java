@@ -7,6 +7,8 @@ import org.jeasy.rules.annotation.Rule;
 
 @Rule(name = "retreatRule", description = "When you are close, take a fire and retreat.")
 public class RetreatRule {
+    private final ArenaBoundsValidator arenaBoundsValidator = new ArenaBoundsValidator();
+
     @Condition
     public boolean when(@Fact("currentBot") Bot currentBot, @Fact("scannedBotEvent") ScannedBotEvent scannedBotEvent) {
         double distanceBetween = currentBot.distanceTo(scannedBotEvent.getX(), scannedBotEvent.getY());
@@ -18,7 +20,7 @@ public class RetreatRule {
     public void then(@Fact("currentBot") Bot currentBot, @Fact("scannedBotEvent") ScannedBotEvent scannedBotEvent) {
         currentBot.fire(4);
         currentBot.setMaxSpeed(5);
-        currentBot.forward(10_000);
+        currentBot.forward(arenaBoundsValidator.calculatePossibleDistance(currentBot, 10_000));
         currentBot.setTurnLeft(0);
     }
 }
