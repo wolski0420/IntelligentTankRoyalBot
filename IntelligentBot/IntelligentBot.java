@@ -16,6 +16,7 @@ import org.jeasy.rules.core.DefaultRulesEngine;
 // Moves in a seesaw motion, and spins the gun around at each end.
 // ------------------------------------------------------------------
 public class IntelligentBot extends Bot {
+    private final ExtraPhysicsValues values = new ExtraPhysicsValues();
     private final Rules rules = new Rules();
     private final RulesEngine rulesEngine = new DefaultRulesEngine();
 
@@ -27,7 +28,9 @@ public class IntelligentBot extends Bot {
     // Constructor, which loads the bot config file
     IntelligentBot() {
         super(BotInfo.fromFile("IntelligentBot.json"));
+        rules.register(new RetreatRule());
         rules.register(new ByAngleShootingRule());
+        rules.register(new MoveTowardsEnemyRule(values));
     }
 
     // Called when a new round is started -> initialize and do some movement
@@ -35,7 +38,7 @@ public class IntelligentBot extends Bot {
     public void run() {
         // Repeat while the bot is running
         while (isRunning()) {
-            turnGunRight(360);
+            turnLeft(5 * values.getTurnDirection());
         }
     }
 
