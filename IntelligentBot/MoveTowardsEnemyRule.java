@@ -24,7 +24,6 @@ public class MoveTowardsEnemyRule {
         // directing and going to enemy bot, trying to fire it
         turnToFaceTarget(currentBot, scannedBotEvent.getX(), scannedBotEvent.getY());
 
-        currentBot.fire(1);
         currentBot.forward( currentBot.distanceTo(scannedBotEvent.getX(), scannedBotEvent.getY()) / 2);
 
         currentBot.rescan();
