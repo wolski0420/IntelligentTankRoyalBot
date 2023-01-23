@@ -38,7 +38,8 @@ public class IntelligentBot extends Bot {
     public void run() {
         // Repeat while the bot is running
         while (isRunning()) {
-            turnLeft(5 * values.getTurnDirection());
+            turnLeft(500 * values.getTurnDirection());
+            forward(10_000);
         }
     }
 
